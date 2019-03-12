@@ -6,7 +6,7 @@ public class Body{
     public double mass;
     public String imgFileName;
     /* public final double G = 6.67 * Math.pow(10, -11); */
-    public final double G = 6.67e-11;
+
 
     /*  Constructor 1 */
     public Body(double xP, double yP, double xV,
@@ -38,9 +38,10 @@ public class Body{
     * samh.calcForceExertedBy(rocinante) */
     public double calcForceExertedBy(Body body)
     {
-        double r = this.calcDistance(body);
-        double F = (G * mass * body.mass) / r * r ;
-        return  F ;
+        double G = 6.67E-11;
+        double r = calcDistance(body);
+        return (G * this.mass * body.mass) / (r * r) ;
+        /* return (G * this.mass * body.mass) / r * r  this,do not have (), so, fail */
     }
 
     /* calcForceExertedByX */

@@ -7,7 +7,7 @@ public class NBody{
     public static double readRadius(String file_name)
     {
         In in = new In(file_name);
-        double garbage = in.readDouble();
+        int garbage = in.readInt();
         double radius = in.readDouble();
         return radius;
     }
