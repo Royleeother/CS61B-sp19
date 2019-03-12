@@ -75,7 +75,7 @@ public class Body{
     /* calcNetForceExertedByX */
     public double calcNetForceExertedByX(Body [] body_array)
     {
-        int len = body_array.length - 1;
+        int len = body_array.length ;
         int i   = 0;
         double allX = 0;
         while (i < len)
@@ -92,7 +92,7 @@ public class Body{
     /* calcNetForceExertedByY */
     public double calcNetForceExertedByY(Body [] body_array)
     {
-        int len = body_array.length - 1;
+        int len = body_array.length ;
         int i   = 0;
         double allY = 0;
         while (i < len)
