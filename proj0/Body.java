@@ -40,7 +40,7 @@ public class Body{
     {
         double r = this.calcDistance(body);
         double F = (G * mass * body.mass) / r * r ;
-        return  F;
+        return  F ;
     }
 
     /* calcForceExertedByX */

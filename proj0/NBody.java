@@ -65,7 +65,7 @@ public class NBody{
         StdDraw.picture(0,0, image);
 
         Body [] bd_array = NBody.readBodies(filename);
-        int lengthOfArray = bd_array.length;
+        int lengthOfArray = bd_array.length ;
         for (int i = 0; i < lengthOfArray; i++)
         {
             bd_array[i].draw();
