@@ -85,19 +85,20 @@ public class IntList {
         else  { A = new IntList(A.first, d_addLast(A.rest, B));}
         return A;
     }
-    public static IntList dcatenate(IntList A, IntList B) {
+    /*public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
         if (B == null) { return A;}
         else    { return A.d_addLast(A, B);}
-    }
+    }*/
 
-    /*public static IntList dcatenate(IntList A, IntList B)
+    public static IntList dcatenate(IntList A, IntList B)
     {
-        IntList P = A.rest;
+        if (A == null){return B;}
+        IntList P = A;
         while (P.rest != null) { P = P.rest;}
         P.rest = B;
-        return P;
-    } */
+        return A;
+    }
 
 
     /**
