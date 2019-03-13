@@ -94,7 +94,7 @@ public class IntList {
     public static IntList dcatenate(IntList A, IntList B)
     {
         if (A == null){return B;}
-        IntList P = A;
+        IntList P = A;  /*都是指向同一个东西而已*/
         while (P.rest != null) { P = P.rest;}
         P.rest = B;
         return A;
@@ -111,12 +111,33 @@ public class IntList {
         else  {return new IntList(A.first, Nd_addLast(A.rest, B));}
     }
 
-    public static IntList catenate(IntList A, IntList B) {
+    /*public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
         if (B == null) { return A;}
         else    { return Nd_addLast(A, B);}
-    }
+    }*/
+    public static IntList catenate(IntList A, IntList B) {
+        //TODO:  fill in method
 
+        if (A == null) {
+            return B;
+        }
+
+        IntList returnList = new IntList (A.first , null);
+        IntList q = returnList;
+        A = A.rest;
+
+        while (A != null) {
+            q.rest = new IntList(A.first, null);
+            A = A.rest;
+            q = q.rest;          /*还是不懂，这样A不就改变了吗？  P是returnList的指针，不会改变*/
+        }
+
+        q.rest = B;
+        System.out.println(A);
+        return returnList;
+
+    }
 
 
 
