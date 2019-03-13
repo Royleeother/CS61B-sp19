@@ -79,30 +79,40 @@ public class IntList {
      * Returns a list consisting of the elements of A followed by the
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
-
+    private static IntList d_addLast(IntList A, IntList B){
+        if (A.rest == null){ A.rest = new IntList(B.first, B.rest); }
+        else  {A = new IntList(A.first, d_addLast(A.rest, B));}
+        return A;
+    }
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if (B == null) { return A;}
+        else    { return A.d_addLast(A, B);}
     }
+
+    /*public static IntList dcatenate(IntList A, IntList B)
+    {
+        IntList P = A.rest;
+        while (P.rest != null) { P = P.rest;}
+        P.rest = B;
+        return P;
+    } */
+
 
     /**
      * Returns a list consisting of the elements of A followed by the
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
-    public static IntList catenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        return null;
+    private static IntList Nd_addLast(IntList A, IntList B){
+        if (A.rest == null){ return new IntList(A.first, new IntList(B.first, B.rest));}
+        else  {return new IntList(A.first, Nd_addLast(A.rest, B));}
     }
 
-
-
-
-
-
-
-
-
-
+    public static IntList catenate(IntList A, IntList B) {
+        //TODO:  fill in method
+        if (B == null) { return A;}
+        else    { return Nd_addLast(A, B);}
+    }
 
 
 
