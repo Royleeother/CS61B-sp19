@@ -81,8 +81,8 @@ public class IntList {
      */
     private static IntList d_addLast(IntList A, IntList B){
         if (A == null){return B;}
-        else if (A.rest == null){ A.rest = new IntList(B.first, B.rest); }
-        else  {A = new IntList(A.first, d_addLast(A.rest, B));}
+        else if (A.rest == null){ A.rest = B; }
+        else  { A = new IntList(A.first, d_addLast(A.rest, B));}
         return A;
     }
     public static IntList dcatenate(IntList A, IntList B) {
