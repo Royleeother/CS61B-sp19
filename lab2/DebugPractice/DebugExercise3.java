@@ -10,8 +10,15 @@ public class DebugExercise3 {
             double cost = in.readDouble();
             int numAvailable = in.readInt();
             if (foodType.equals("turnip")) {
+                // if (numAvailable < 0){numAvailable = 0;}
                 int newTotal = totalTurnips + numAvailable;
                 totalTurnips = newTotal;
+                if (totalTurnips < 0)
+                {
+                    System.out.println("Number of Total Turnips becomes less than 0!");
+                    totalTurnips = 0;
+                    break;
+                }
             }
             in.readLine();
         }
