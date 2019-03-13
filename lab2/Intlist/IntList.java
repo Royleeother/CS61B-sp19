@@ -80,7 +80,8 @@ public class IntList {
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
     private static IntList d_addLast(IntList A, IntList B){
-        if (A.rest == null){ A.rest = new IntList(B.first, B.rest); }
+        if (A == null){return B;}
+        else if (A.rest == null){ A.rest = new IntList(B.first, B.rest); }
         else  {A = new IntList(A.first, d_addLast(A.rest, B));}
         return A;
     }
@@ -104,7 +105,8 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     private static IntList Nd_addLast(IntList A, IntList B){
-        if (A.rest == null){ return new IntList(A.first, new IntList(B.first, B.rest));}
+        if (A == null){return B;}
+        else if (A.rest == null){ return new IntList(A.first, new IntList(B.first, B.rest));}
         else  {return new IntList(A.first, Nd_addLast(A.rest, B));}
     }
 
