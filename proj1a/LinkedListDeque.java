@@ -1,10 +1,10 @@
 public class LinkedListDeque<T> {
     private class TNode {
-        public TNode pre;
-        public T item;
-        public TNode next;
+        private TNode pre;
+        private T item;
+        private TNode next;
 
-        public TNode(TNode p, T i, TNode n) {
+        TNode(TNode p, T i, TNode n) {
             pre = p;
             item = i;
             next = n;
@@ -53,7 +53,7 @@ public class LinkedListDeque<T> {
 
     public void printDeque() {
         TNode P = FrontSentinel.next;
-        while (P.next.item != null){
+        while (P.next.item != null) {
             System.out.print(P.item + " ");
             P = P.next;
         }
@@ -61,7 +61,7 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
         }
         T re = FrontSentinel.next.item;
@@ -72,7 +72,7 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
         }
         T re = BackSentinel.pre.item;
@@ -83,10 +83,9 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
-        }
-        else if (index >= size){
+        } else if (index >= size) {
             System.out.println("INDEX OUT OF RANGE");
             return null;
         }
@@ -102,16 +101,15 @@ public class LinkedListDeque<T> {
         //other.FrontSentinel.next.item.getClass();
         LinkedListDeque<T> copy = new LinkedListDeque<>();
         TNode P = other.FrontSentinel.next;
-        while (P != null){
+        while (P != null) {
             copy.addLast(P.item);
         }
     }
 
-    public T helper(TNode node, int index) {
+    private T helper(TNode node, int index) {
         if (index == 0) {
             return node.item;
-        }
-        else if (index >= size){
+        } else if (index >= size) {
             System.out.println("INDEX OUT OF RANGE");
             return null;
         }
