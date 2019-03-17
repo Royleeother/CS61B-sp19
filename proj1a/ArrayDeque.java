@@ -1,4 +1,5 @@
 public class ArrayDeque<T> {
+
     private T[] items;
     private int size;
     private int nextFirst;
@@ -155,7 +156,7 @@ public class ArrayDeque<T> {
         return items[adjustIndex(index)];
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         ArrayDeque<Integer> ad = new ArrayDeque<>();
         ad.addFirst(5);
         ad.addFirst(6);
@@ -183,6 +184,6 @@ public class ArrayDeque<T> {
         ad.removeFirst();
         ad.removeFirst();
         ad.removeFirst();
-    }
+    }*/
 
 }
