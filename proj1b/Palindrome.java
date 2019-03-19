@@ -1,15 +1,15 @@
 public class Palindrome {
-    public Deque wordToDeque(String word) {
-        LinkedListDeque<String> dq = new LinkedListDeque<>();
+    public Deque<Character> wordToDeque(String word) {
+        LinkedListDeque<Character> dq = new LinkedListDeque<>();
         if ( word == null) { return dq;}
         for (int i = 0; i < word.length(); i += 1) {
-            dq.addLast(Character.toString(word.charAt(i)));
+            dq.addLast(word.charAt(i));
         }
         return dq;
     }
 
     public boolean isPalindrome(String word) {
-        if (word == null) {return false;}
+        if (word == null) { return false; }
         if (word.length() == 1 || word.length() == 0) { return true; }
         Deque dq =  wordToDeque(word);
         LinkedListDeque<String> reverse = new LinkedListDeque<>();
