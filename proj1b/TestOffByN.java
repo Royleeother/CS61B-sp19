@@ -9,6 +9,4 @@ public class TestOffByN {
         assertFalse(obo.equalChars('a', 'b'));
         assertTrue(obo.equalChars('a', 'f'));
     }
-
-
 }

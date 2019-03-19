@@ -1,4 +1,5 @@
 public class Palindrome {
+
     public Deque<Character> wordToDeque(String word) {
         LinkedListDeque<Character> dq = new LinkedListDeque<>();
         if ( word == null) { return dq;}
@@ -26,7 +27,7 @@ public class Palindrome {
         return true;
     }
 
-    /**
+    /*
      * Deque<Character> worddeque = wordToDeque(word);
      *
      *         if (worddeque.size() == 0 || worddeque.size() == 1) {
