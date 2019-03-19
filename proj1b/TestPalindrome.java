@@ -22,7 +22,7 @@ public class TestPalindrome {
         boolean f = palindrome.isPalindrome("ljq");
         assertEquals(t, true);
         assertEquals(f, false);
-        
+
         assertTrue(palindrome.isPalindrome("noon"));
         assertFalse(palindrome.isPalindrome("cat"));
         assertTrue(palindrome.isPalindrome("n"));
