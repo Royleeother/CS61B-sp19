@@ -17,7 +17,9 @@ public class Palindrome {
             reverse.addLast(Character.toString(word.charAt(i - 1)));
         }
         for (int i = 0; i < dq.size(); i++) {
-            if (!dq.get(i).equals( reverse.get(i))) {
+            String a = dq.get(i).toString();   // this step is important !!!
+            String b = reverse.get(i);
+            if (!a.equals(b)) {
                 return false;
             }
         }
