@@ -25,7 +25,7 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome("cat"));
         assertTrue(palindrome.isPalindrome("n"));
         assertTrue(palindrome.isPalindrome(""));
-
+        assertFalse(palindrome.isPalindrome(null));
     }
 
     @Test
@@ -33,6 +33,7 @@ public class TestPalindrome {
         CharacterComparator cc = new OffByOne();
         assertTrue(palindrome.isPalindrome("flake", cc));
         assertFalse(palindrome.isPalindrome("ljeq", cc));
+        assertFalse(palindrome.isPalindrome(null, cc));
     }
 
 
