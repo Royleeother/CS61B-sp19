@@ -16,6 +16,37 @@ public class TestArrayDequeGold {
     int temp;
     int temp1;
 
+    @Test  //StudentArrayDeque and ad
+    public void testAddLast() {
+        // initialize an Deque
+        for (Integer i = 0; i < 10; i += 1) {
+            int num = StdRandom.uniform(a, b) ;
+            stud1.addFirst(num);
+            solu.addFirst(num);
+        }
+
+        for (int i = 0; i < 10; i += 1) {
+            if (!stud1.isEmpty() & !solu.isEmpty()) {
+                assertEquals(stud1.removeFirst(), solu.removeFirst());
+            }
+        }
+
+        for (Integer i = 0; i < 10; i += 1) {
+            int num = StdRandom.uniform(a, b) ;
+            stud1.addLast(num);
+            solu.addLast(num);
+        }
+
+        for (int i = 0; i < 10; i += 1) {
+            if (!stud1.isEmpty() & !solu.isEmpty()) {
+                temp = solu.removeLast();
+                temp1 = stud1.removeLast();
+                assertEquals(temp, temp1);
+                //assertEquals(solu.removeLast(), stud1.removeLast());
+            }
+        }
+    }
+
     @Test
     public void RandomizedTesting() {
         for (int i = 0; i < loopVal; i++) {
