@@ -54,14 +54,13 @@ public class Clorus extends Creature {
     //If a Clorus attacks another creature,
     //it should gain that creature’s energy.
     public void attack(Creature c) {
-        energy = c.energy();
+        energy += c.energy();  // I forget to add the "+", so it is only "=" originally
     }
 
     @Override
     public Clorus replicate() {
         energy = energy * 0.5;
-        double test = energy;
-        return new Clorus(test);
+        return new Clorus(energy);
     }
     @Override
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
@@ -71,7 +70,7 @@ public class Clorus extends Creature {
         for (Direction d: neighbors.keySet()) {
             if (neighbors.get(d).name().equals("empty")) {
                 emptyNeighbors.addLast(d);
-            } else if (neighbors.get(d).name().equals("plips")) {
+            } else if (neighbors.get(d).name().equals("plip")) { // I wrote plips ,,,FUCK FUCK FUCK
                 plipNeighbors.addLast(d);
             }
         }

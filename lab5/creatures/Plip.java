@@ -83,10 +83,7 @@ public class Plip extends Creature {
      */
     public void move() {
         energy -= 0.15;
-        //checkEnergy(energy);
-        if (energy < 0) {
-            energy = 0;
-        }
+        checkEnergy(energy);
     }
 
 
@@ -95,10 +92,7 @@ public class Plip extends Creature {
      */
     public void stay() {
         energy += 0.2;
-        //checkEnergy(energy);
-        if (energy > 2) {
-            energy = 2;
-        }
+        checkEnergy(energy);
     }
 
     /**
@@ -107,9 +101,8 @@ public class Plip extends Creature {
      * Plip.
      */
     public Plip replicate() {
-        Plip offspring =  new Plip(energy / 2);
-        this.energy /= 2;
-        return offspring;
+        energy = energy * 0.5;
+        return new Plip(energy);
     }
 
     /**
