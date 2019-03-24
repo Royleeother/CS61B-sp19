@@ -82,7 +82,6 @@ public class Plip extends Creature {
      * private static final variable. This is not required for this lab.
      */
     public void move() {
-        // TODO
         energy -= 0.15;
         //checkEnergy(energy);
         if (energy < 0) {
@@ -95,7 +94,6 @@ public class Plip extends Creature {
      * Plips gain 0.2 energy when staying due to photosynthesis.
      */
     public void stay() {
-        // TODO
         energy += 0.2;
         //checkEnergy(energy);
         if (energy > 2) {

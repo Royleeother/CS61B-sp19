@@ -7,7 +7,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
 import static huglife.HugLifeUtils.randomEntry;
-
+/*
+ @author Roy
+*/
 public class Clorus extends Creature {
     /**
      * red color.
@@ -29,15 +31,12 @@ public class Clorus extends Creature {
         b = 0;
         energy = e;
     }
-    public Clorus() {
-        this(1);
-    }
 
     @Override
     public Color color() {
         r = 34;
-        b = 231;
         g = 0;
+        b = 231;
         return color(r, g, b);
     }
 
@@ -60,10 +59,11 @@ public class Clorus extends Creature {
 
     @Override
     public Clorus replicate() {
-        this.energy /= 2;
-        Clorus offspring =  new Clorus(energy);
-        return offspring;
+        energy = energy * 0.5;
+        double test = energy;
+        return new Clorus(test);
     }
+    @Override
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
         Deque<Direction> emptyNeighbors = new ArrayDeque<>();
         Deque<Direction> plipNeighbors = new ArrayDeque<>();
@@ -80,11 +80,11 @@ public class Clorus extends Creature {
             return new Action(Action.ActionType.STAY);
         }
         //Rule 2
-        if (plipNeighbors.size() > 0) {
+        else if (plipNeighbors.size() > 0) {
             return new Action(Action.ActionType.ATTACK, randomEntry(plipNeighbors));
         }
         //Rule 3
-        if (this.energy > 1) {
+        else if (this.energy >= 1) {
             return new Action(Action.ActionType.REPLICATE, randomEntry(emptyNeighbors));
         }
         //Rule 4
