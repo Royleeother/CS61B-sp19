@@ -15,7 +15,7 @@ public class ArrayRingBuffer<T> implements BoundedQueue<T> {
     /* Array for storing the buffer data. */
     private T[] rb;
     // record for capacity
-    int kp;
+    private int kp;
     /**
      * Create a new ArrayRingBuffer with the given capacity.
      */
