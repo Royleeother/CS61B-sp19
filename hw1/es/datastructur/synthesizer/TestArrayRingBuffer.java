@@ -1,5 +1,8 @@
 package es.datastructur.synthesizer;
 import org.junit.Test;
+
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 /** Tests the ArrayRingBuffer class.
@@ -8,7 +11,12 @@ import static org.junit.Assert.*;
 
 public class TestArrayRingBuffer {
     @Test
-    public void someTest() {
-        //ArrayRingBuffer arb = new ArrayRingBuffer(10);
+    public void testIterator() {
+        /*ArrayRingBuffer arb = new ArrayRingBuffer(10);
+        arb.enqueue(1);
+        arb.enqueue(2);*/
+
+        //Iterator<String> this_iter = new Iterable<>();
+        //BoundedQueue<Integer> arb = new
     }
 }
