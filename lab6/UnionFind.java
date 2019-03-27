@@ -43,9 +43,9 @@ public class UnionFind {
 
     /* Returns true if nodes v1 and v2 are connected. */
     public boolean connected(int v1, int v2) {
-        if (parent(v1) == parent(v2)) {
+        if (id[v1] == id[v2]) {
             return true;
-        } else if (parent(v1) < 0 || parent(v2) < 0) {
+        } else if (id[v1] < 0 || id[v2] < 0) {
             return false;
         }
         return connected(id[v1], id[v2]);
