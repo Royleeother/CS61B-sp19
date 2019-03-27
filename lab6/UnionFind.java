@@ -21,7 +21,7 @@ public class UnionFind {
 
     /* Throws an exception if v1 is not a valid index. */
     private void validate(int vertex) {
-        if (vertex < 0) {
+        if (vertex < 0 || vertex >= id.length) {
             throw new IllegalArgumentException();
         }
     }
@@ -34,12 +34,7 @@ public class UnionFind {
     /* Returns the parent of v1. If v1 is the root of a tree, returns the
        negative size of the tree for which v1 is the root. */
     public int parent(int v1) {
-        validate(v1);
-        int node = id[v1];
-        if (node < 0) {
-            node = -1 * sizeOf(v1);
-        }
-        return node;
+        return id[v1];
     }
 
     /* Returns true if nodes v1 and v2 are connected. */
@@ -68,12 +63,14 @@ public class UnionFind {
             int small_dd   = find(v2);
             id[small_dd]   = big_parent;
             size[v1] += size[v2];
+            id[big_parent] = -1 * size[v1];
 
         } else if (sizeOf(v1) <= sizeOf(v2)) {
             int big_parent = find(v2);
             int small_dd   = find(v1);
             id[small_dd]   = big_parent;
             size[v2] += size[v1];
+            id[big_parent] = -1 * size[v1];
         }
     }
 
@@ -81,10 +78,11 @@ public class UnionFind {
        allowing for fast search-time. */
     public int find(int vertex) {
         validate(vertex);
-        if (id[vertex] < 0) {
+        int p = parent(vertex);
+        if (p < 0) {
             return vertex;
         }
-        return find(id[vertex]);
+        return find(p);
     }
 
 }

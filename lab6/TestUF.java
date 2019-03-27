@@ -29,6 +29,7 @@ public class TestUF {
         UnionFind UF = new UnionFind(8);
         UF.union(1, 2);
         UF.union(2, 6);
+        int t = UF.find(6);
     }
     @Test
     public void testParent() {
