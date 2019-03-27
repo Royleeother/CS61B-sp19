@@ -13,7 +13,8 @@ public class UnionFind {
         size = new int[n];
         // initialize a component with sets separately
         for (int i = 0; i < n; i += 1) {
-            id[i] = i;
+            //id[i] = i;
+            id[i] = -1;
             size[i] = 1;
         }
     }
@@ -43,12 +44,14 @@ public class UnionFind {
 
     /* Returns true if nodes v1 and v2 are connected. */
     public boolean connected(int v1, int v2) {
-        if (id[v1] == id[v2]) {
+        int p1 = parent(v1);
+        int p2 = parent(v2);
+        if (p1 == p2 && sizeOf(v1) != 1 && sizeOf(v2) != 1) {
             return true;
-        } else if (id[v1] < 0 || id[v2] < 0) {
+        } else if (p1 < 0 || p2 < 0) {
             return false;
         }
-        return connected(id[v1], id[v2]);
+        return connected(p1, p2);
     }
 
     /* Connects two elements v1 and v2 together. v1 and v2 can be any valid 

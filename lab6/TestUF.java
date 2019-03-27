@@ -16,7 +16,9 @@ public class TestUF {
     }
     @Test
     public void testConnected() {
-
+        UnionFind UF = new UnionFind(8);
+        boolean f =  UF.connected(1, 2);
+        assertFalse(f);
     }
     @Test
     public void testFind() {
@@ -24,7 +26,9 @@ public class TestUF {
     }
     @Test
     public void testUnion() {
-
+        UnionFind UF = new UnionFind(8);
+        UF.union(1, 2);
+        UF.union(2, 6);
     }
     @Test
     public void testParent() {
