@@ -95,8 +95,8 @@ public class Percolation {
 
     // use for unit testing (not required, but keep this here for the autograder)
     public static void main(String[] args) {
-        Percolation fillter = new Percolation(5);
-        fillter.open(0, 2);
+        Percolation fillter = new Percolation(10);
+        fillter.open(-1, 5);
         fillter.open(2, 2);
         boolean haha = fillter.isFull(0, 2);
         boolean enen = fillter.isFull(2, 2);
@@ -107,10 +107,13 @@ public class Percolation {
         return (r * NN) + c;
     }
     // check whether input the correct row, col
-    private boolean validate(int row, int col) {
-        if (!(row >= 0 && row <= NN - 1 && col >= 0 && col <= NN - 1)) {
+    private void validate(int row, int col) {
+        /*if (!(row >= 0 && row <= NN - 1 && col >= 0 && col <= NN - 1)) {
+            throw new java.lang.IllegalArgumentException();
+        }*/
+        if (row < 0 || col < 0 || row >= NN || col >= NN) {
             throw new java.lang.IllegalArgumentException();
         }
-        return true;
     }
+
 }
