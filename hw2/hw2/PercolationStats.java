@@ -15,7 +15,7 @@ public class PercolationStats {
             throw new java.lang.IllegalArgumentException();
         }
         time = T;
-        data_record = new double[N];
+        data_record = new double[T];
         for (int i = 0; i < T; i++) {
             Percolation filter = pf.make(N);
             while (!filter.percolates()) {
