@@ -48,7 +48,7 @@ public class PercolationStats {
             double x = data_record[i];
             dva += Math.pow((x - sp), 2);
         }
-        return Math.sqrt(dva) / time - 1;
+        return Math.sqrt(dva / (time - 1));
     }
 
     // low endpoint of 95% confidence interval
