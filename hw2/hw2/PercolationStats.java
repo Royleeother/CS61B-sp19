@@ -6,7 +6,6 @@ import edu.princeton.cs.introcs.StdRandom;
 public class PercolationStats {
     // perform T independent experiments on an N-by-N grid
     private double[] data_record;
-    private double totalOpen;
     private double ratio;
     private int time;
 
@@ -23,8 +22,8 @@ public class PercolationStats {
                 int c = StdRandom.uniform(0, N); // 0 ~ N - 1
                 filter.open(r, c);
             }
-            totalOpen = Double.valueOf(filter.numberOfOpenSites());
-            ratio  = totalOpen / N * N;
+            double totalOpen = Double.valueOf(filter.numberOfOpenSites());
+            ratio  = totalOpen / (N * N);
             data_record[i] = ratio;
         }
     }
