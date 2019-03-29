@@ -34,7 +34,7 @@ public class PercolationStats {
         int length = data_record.length;
         double total  = 0;
         for (int i = 0; i < length; i++) {
-            time += data_record[i];
+            total += data_record[i];
         }
         return total / time;
     }
