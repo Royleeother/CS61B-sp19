@@ -1,0 +1,16 @@
+Random Speed:
+Please enter desired length of each string: 10
+
+Enter # strings to insert into the maps: qwertyuiop
+Please enter a positive integer: 5000
+class ULLMap: 0.11 sec
+class BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.01 sec
+
+Order:
+Enter # strings to insert into the maps: qwertyuiop
+Please enter a positive integer: 5000
+class ULLMap: 0.26 sec
+class BSTMap: 0.37 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
