@@ -26,12 +26,12 @@ public class SimpleOomage implements Oomage {
         if (!USE_PERFECT_HASH) {
             return red + green + blue;
         } else {
-            /*this.red /= 5;
+            this.red /= 5;
             this.green /= 5;
-            this.blue /= 5;*/
-            return ((this.red * (int) Math.pow(26, 2))
-                    + (this.green * (int) Math.pow(26, 1))
-                    + (this.blue * (int) Math.pow(26, 0)));
+            this.blue /= 5;
+            return ((this.red * (int) Math.pow(27, 2))
+                    + (this.green * (int) Math.pow(27, 1))
+                    + (this.blue * (int) Math.pow(27, 0)));
         }
     }
 
