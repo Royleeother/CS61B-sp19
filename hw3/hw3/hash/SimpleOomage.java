@@ -29,9 +29,9 @@ public class SimpleOomage implements Oomage {
             this.red /= 5;
             this.green /= 5;
             this.blue /= 5;
-            return ((this.red * (int) Math.pow(27, 2))
-                    + (this.green * (int) Math.pow(27, 1))
-                    + (this.blue * (int) Math.pow(27, 0)));
+            return ((this.red * (int) Math.pow(255, 2))
+                    + (this.green * (int) Math.pow(255, 1))
+                    + (this.blue * (int) Math.pow(255, 0)));
         }
     }
 
