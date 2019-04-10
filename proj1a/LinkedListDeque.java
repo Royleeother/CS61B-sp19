@@ -124,13 +124,13 @@ public class LinkedListDeque<T> {
     }
 
     // main function for test
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         LinkedListDeque<Integer> dq = new LinkedListDeque<>();
         dq.addFirst(666);
         dq.addLast(888);
         dq.addLast(999);
         dq.addFirst(555);
         dq.printDeque();
-    }*/
+    }
 
 }

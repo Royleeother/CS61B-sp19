@@ -157,7 +157,7 @@ public class ArrayDeque<T> {
     }
 
     public static void main(String[] args) {
-        /*ArrayDeque<Integer> ad = new ArrayDeque<>();
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
         ad.addFirst(5);
         ad.addFirst(6);
         ad.addLast(7);
@@ -183,10 +183,10 @@ public class ArrayDeque<T> {
         ad.removeFirst();
         ad.removeFirst();
         ad.removeFirst();
-        ad.removeFirst();*/
-        ArrayDeque<Integer> copy = new ArrayDeque<>();
+        ad.removeFirst();
+        /*ArrayDeque<Integer> copy = new ArrayDeque<>();
         copy.addFirst(5);
-        copy.addLast(6);
+        copy.addLast(6); */
     }
 
 }

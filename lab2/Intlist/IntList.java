@@ -83,6 +83,7 @@ public class IntList {
         if (A == null){return B;}
         else if (A.rest == null){ A.rest = B; }
         else  { A = new IntList(A.first, d_addLast(A.rest, B));}
+        // else {d_addLast(A.rest, B)} 这样不就行了，我真笨啊！！！
         return A;
     }
     /*public static IntList dcatenate(IntList A, IntList B) {
@@ -126,15 +127,17 @@ public class IntList {
         IntList returnList = new IntList (A.first , null);
         IntList q = returnList;
         A = A.rest;
+        /* 可以这样写，没这么混淆 */
+        IntList GG = A.rest;
 
         while (A != null) {
             q.rest = new IntList(A.first, null);
             A = A.rest;
+            // GG = GG.rest;
             q = q.rest;          /*还是不懂，这样A不就改变了吗？  P是returnList的指针，不会改变*/
         }
 
         q.rest = B;
-        System.out.println(A);
         return returnList;
 
     }
