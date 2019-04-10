@@ -6,7 +6,8 @@ import java.util.Iterator;
 public class MyHashMap<K,V> implements Map61B<K,V> {
     private double loadFactor = 0.75;
     private int size;
-    private ArrayList<K>[]      hashMap;
+    private K[] hashMap; // this is the list stores keys
+    private V[] Val;    // this is the list stores values
     //private MyHashMap<K,V>[] hashMap;
     private int initialSize = 16;
     private HashSet<K> keySet;
@@ -19,32 +20,42 @@ public class MyHashMap<K,V> implements Map61B<K,V> {
 
     // three constructors
     public MyHashMap() { // default hash table
-        hashMap = new MyHashMap(initialSize, loadFactor).hashMap;
+        hashMap = (K[]) new MyHashMap(initialSize, loadFactor).hashMap;
+        Val = (V[]) new MyHashMap(initialSize, loadFactor).Val;
+        keySet = new MyHashMap(initialSize, loadFactor).keySet;
         //this(initialSize, loadFactor);
     }
     public MyHashMap(int initialSize) {
-        hashMap = new MyHashMap(initialSize, loadFactor).hashMap;
+        hashMap = (K[]) new MyHashMap(initialSize, loadFactor).hashMap;
+        Val = (V[]) new MyHashMap(initialSize, loadFactor).Val;
+        keySet = new MyHashMap(initialSize, loadFactor).keySet;
     }
     public MyHashMap(int initialSize, double loadFactor) {
-        hashMap = new ArrayList(initialSize);
+        //hashMap = new ArrayList(initialSize);
         //hashMap = (MyHashMap<K,V>[]) new MyHashMap[initialSize];
+        hashMap = (K[]) new Object[initialSize];
+        Val = (V[]) new Object[initialSize];
         this.loadFactor = loadFactor;
         size = 0;
-        for (int i = 0; i < hashMap.length; i += 1) {
-            hashMap[i] = new ArrayList();
-        }
+        keySet = new HashSet<>(initialSize);
+        //ArrayList arrli = new ArrayList(16);
+        /*for (int i = 0; i < hashMap.length; i += 1) {
+            hashMap[i] = arrli;
+        }*/
     }
     @Override
     public void clear() {
         //hashMap = new MyHashMap[0];
         for (int i = 0; i < hashMap.length; i += 1) {
-            hashMap[i] = new MyHashMap();
+            hashMap[i] = null;
+            Val[i] = null;
         }
         size = 0;
     }
     @Override
     public V get(K key) {
-        return (V) hashMap[hash(key)].get(key);
+        //return (V) hashMap[hash(key)].get(hash(key));
+        return Val[hash(key)];
     }
     public int hash(K key) {
         int numBuckets = hashMap.length;
@@ -55,7 +66,8 @@ public class MyHashMap<K,V> implements Map61B<K,V> {
         if (hashMap == null) {
             return false;
         }
-        return hashMap[hash(key)].get(key) != null;
+        //return hashMap[hash(key)].get(hash(key)) != null;
+        return hashMap[hash(key)] != null;
     }
     @Override
     public int size() {
@@ -80,8 +92,12 @@ public class MyHashMap<K,V> implements Map61B<K,V> {
     @Override
     public void put(K key, V value) {
         int h = hash(key);
-        hashMap[h].put(key, value);
+        /*if (!containsKey(key)) {
+            size += 1;
+        }*/
         size += 1;
+        hashMap[h] = key;
+        Val[h] = value;
         keySet.add(key);
     }
 }

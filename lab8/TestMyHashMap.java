@@ -110,7 +110,8 @@ public class TestMyHashMap {
 
         // putting with existing key updates the value
         dictionary.put("hello", "kevin");
-        assertEquals(1, dictionary.size());
+        int hh = dictionary.size();
+        assertEquals(1, hh);
         assertEquals("kevin", dictionary.get("hello"));
 
         // putting key in multiple times does not affect behavior
