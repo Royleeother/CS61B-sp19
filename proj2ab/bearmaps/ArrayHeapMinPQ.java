@@ -1,25 +1,18 @@
 package bearmaps;
 
+// @source: yngz https://github.com/yngz/cs61b/blob/master/proj2ab/bearmaps/ArrayHeapMinPQ.java
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
-
-    private ArrayList<PriorityNode> items;
-    //private HashSet sets;
-    private HashMap maps;
-    private int smallestPos;
+    private ArrayList<PriorityNode> heap;
+    private HashMap map;
 
     public ArrayHeapMinPQ() {
-        items = new ArrayList<>(20);
-        smallestPos = 0;
-        for (int i = 0; i < 20; i++) {
-            items.add(new PriorityNode((T) "INITIALIZE", -99));
-        }
-        //sets = new HashSet<T>();
-        maps = new HashMap<T, Integer>();
+        heap = new ArrayList();
+        map = new HashMap<T, Integer>();
     }
 
     private class PriorityNode {
@@ -32,86 +25,113 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         }
     }
 
-    @Override
-    public void add(T item, double priority) {
-        int pos = (int) priority;
-        if (maps.containsKey(item)) {
-            throw new IllegalArgumentException();
-        } else {
-            comparePriority(priority, pos, item);
-        }
-        //sets.add(item);
+    private static int parent(int i) {
+        return (i - 1) / 2;
     }
 
-    private void comparePriority(double priority, int pos, T item) {
-        if (items.get(pos).priority == -99) {
-            items.set(pos, new PriorityNode(item, priority));
-            maps.put(item, pos);
-            setSmallestPos(pos);
-        }
-        else {
-            double current_prio = items.get(pos).priority;
-            double next_prio = items.get(pos + 1).priority;
+    private static int leftNode(int i) {
+        return 2 * i + 1;
+    }
 
-            if (current_prio <= priority && next_prio > priority) {
-                items.add(pos, new PriorityNode(item, priority));
-                maps.put(item, pos);
-                setSmallestPos(pos);
-            } else if (current_prio > priority) {
-                comparePriority(priority, pos - 1, item);
-            } else if (current_prio <= priority){
-                comparePriority(priority, pos + 1, item);
+    private static int rightNode(int i) {
+        return 2 * i + 2;
+    }
+
+    private boolean less(int i, int j) {
+        return heap.get(i).priority < heap.get(j).priority;
+    }
+
+    private void swim(int i) {
+        while (i > 0) {
+            int p = parent(i);
+            if (!less(i, p)) {
+                break;
+            }
+            swap(i, p);
+            i = p;
+        }
+    }
+
+    private void swap(int i, int j) {
+        PriorityNode tempt = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, tempt);
+        map.put(heap.get(i).item, i);
+        map.put(heap.get(j).item, j);
+    }
+
+    private void sink(int i) {
+        //    i < size()
+        while (leftNode(i) < size()) {
+            int left = leftNode(i);
+            int right = rightNode(i);
+            if (less(left, i)) {
+                swap(i, left);
+                i = left;
+            } else if (less(right, i)) {
+                swap(i, right);
+                i = right;
+            } else {
+                break;
             }
         }
-        //之所以要重复maps 和 setsmallestPos 是为了避免后续的重复
-    }
-    private void setSmallestPos(int pos) {
-        double smp_prio = items.get(smallestPos).priority;
-        double current_prio = items.get(pos).priority;
-        if (smp_prio == -99 || current_prio < smp_prio) {
-            T current_item = items.get(pos).item;
-            smallestPos = (int)maps.get(current_item);
-        }
     }
 
     @Override
+    public void add(T item, double priority) {
+        if (contains(item)) {
+            throw new IllegalArgumentException();
+        }
+        heap.add(new PriorityNode(item, priority));
+        map.put(item, size() - 1);
+        swim(size() - 1);
+    }
+    @Override
     public boolean contains(T item) {
-        //return sets.contains(item);
-        return maps.containsKey(item);
+        return map.containsKey(item);
     }
     @Override
     public T getSmallest() {
-        return items.get(smallestPos).item;
+        if (heap.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return heap.get(0).item;
     }
     @Override
     public T removeSmallest() {
-        T re = getSmallest();
-        items.remove(smallestPos);
-        maps.remove(re);
-        maps.values();
-        return re;
+        if (heap.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        T min = heap.get(0).item;
+        swap(0, size() - 1);
+        heap.remove(size() - 1);
+        sink(0);
+        map.remove(min);
+        return min;
     }
     @Override
     public int size() {
-        return items.size();
+        return heap.size();
     }
     @Override
     public void changePriority(T item, double priority) {
-        if (!maps.containsKey(item)) {    //!sets.contains(item)
+        if (!contains(item)) {
             throw new NoSuchElementException();
         }
-        //items.remove(new PriorityNode((T) "hi", 2.5));  // 这里存疑，明天再搞 连这样都remove不了
-        int key = (int) maps.get(item);
-        items.remove(key);
-        maps.remove(item);
-        add(item, priority);
-    }
-
-    public static void main(String[] args) {
-        ArrayHeapMinPQ<String> a = new ArrayHeapMinPQ<>();
-        a.items.size();
-        a.add("hi", 2.5);
-        a.changePriority("hi", 3);
+        int i = (int)map.get(item);
+        double oldPriority = heap.get(i).priority;
+        //heap.set(i, new PriorityNode(item, priority));
+        heap.get(i).priority = priority;
+        if (oldPriority < priority) {
+            sink(i);
+        } else {
+            swim(i);
+        }
+        /*if (less(i, leftNode(i)) || less(i, rightNode(i))) {
+            swim(i);
+        } else {
+            sink(i);
+        }*/
     }
 
 }
