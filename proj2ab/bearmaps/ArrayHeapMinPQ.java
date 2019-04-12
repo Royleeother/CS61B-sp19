@@ -10,9 +10,11 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     private ArrayList<PriorityNode> items;
     //private HashSet sets;
     private HashMap maps;
+    private int smallestPos;
 
     public ArrayHeapMinPQ() {
         items = new ArrayList<>(20);
+        smallestPos = 0;
         for (int i = 0; i < 20; i++) {
             items.add(new PriorityNode((T) "INITIALIZE", -99));
         }
@@ -44,6 +46,8 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     private void comparePriority(double priority, int pos, T item) {
         if (items.get(pos).priority == -99) {
             items.set(pos, new PriorityNode(item, priority));
+            maps.put(item, pos);
+            setSmallestPos(pos);
         }
         else {
             double current_prio = items.get(pos).priority;
@@ -51,15 +55,25 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
             if (current_prio <= priority && next_prio > priority) {
                 items.add(pos, new PriorityNode(item, priority));
+                maps.put(item, pos);
+                setSmallestPos(pos);
             } else if (current_prio > priority) {
                 comparePriority(priority, pos - 1, item);
             } else if (current_prio <= priority){
                 comparePriority(priority, pos + 1, item);
             }
         }
-        maps.put(item, pos);
-
+        //之所以要重复maps 和 setsmallestPos 是为了避免后续的重复
     }
+    private void setSmallestPos(int pos) {
+        double smp_prio = items.get(smallestPos).priority;
+        double current_prio = items.get(pos).priority;
+        if (smp_prio == -99 || current_prio < smp_prio) {
+            T current_item = items.get(pos).item;
+            smallestPos = (int)maps.get(current_item);
+        }
+    }
+
     @Override
     public boolean contains(T item) {
         //return sets.contains(item);
@@ -67,12 +81,14 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     }
     @Override
     public T getSmallest() {
-        return items.get(0).item;
+        return items.get(smallestPos).item;
     }
     @Override
     public T removeSmallest() {
         T re = getSmallest();
-        items.remove(0);
+        items.remove(smallestPos);
+        maps.remove(re);
+        maps.values();
         return re;
     }
     @Override

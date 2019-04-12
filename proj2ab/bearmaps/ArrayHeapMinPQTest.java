@@ -19,7 +19,12 @@ public class ArrayHeapMinPQTest {
         ArrayHeapMinPQ<String> a = new ArrayHeapMinPQ<String>();
 
         a.add("hi", 2.5);
-        a.add("hi", 5);
+        //a.add("hi", 5);
+        a.add("ji", 2.1);
+        assertEquals(a.getSmallest(), "ji");
+        a.changePriority("ji", 4);
+        assertEquals(a.getSmallest(), "hi");
+        a.removeSmallest();
 
     }
 }
