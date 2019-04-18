@@ -36,19 +36,20 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
 
         solution = new LinkedList<>();
 
-        // compute start from here!!!
+        // compute start from here!!! !!! !!! !!!
         aStar(input, start);
     }
 
     private void aStar(AStarGraph<Vertex> G, Vertex s) {
-        sw = new Stopwatch();
-        Fringe = new DoubleMapPQ();
-        double pior = disTo.get(s) + G.estimatedDistanceToGoal(s, this.target);
+        sw = new Stopwatch(); // Clock start clicking !!!
+        Fringe = new DoubleMapPQ(); // PQ
+        double pior = disTo.get(s) + G.estimatedDistanceToGoal(s, this.target); //heuristic !!!
         Fringe.add(s, pior);
 
         while (Fringe.size() != 0 && sw.elapsedTime() < timeout) {
-            Vertex v = (Vertex) Fringe.removeSmallest();
-            if (v == this.target) {
+            Vertex v = (Vertex) Fringe.removeSmallest(); // Dequeue ……
+
+            if (v == this.target) { // WE FIND THE TARGET!!!
                 // solution list
                 while (v != null) {
                     ((LinkedList<Vertex>) solution).addFirst(v);
@@ -63,19 +64,16 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
 
                 timer = sw.elapsedTime();
 
-                break;
+                break;  // SO WE ARE ABLE TO LEAVE ……
 
             } else {
-                relax(v, G);
-                if (sw.elapsedTime() >= this.timeout) {
-                    outcome = SolverOutcome.TIMEOUT;
-                    timer = sw.elapsedTime();
-                }
+                relax(v, G); // TO update the fringe
             }
             this.explored += 1;
         }
         // do some decision
         if (sw.elapsedTime() >= this.timeout) {
+            timer = sw.elapsedTime();
             outcome= SolverOutcome.TIMEOUT;
         } else if (solution.size() == 0) {
             outcome = SolverOutcome.UNSOLVABLE;
