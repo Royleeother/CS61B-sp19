@@ -102,6 +102,4 @@ public class MyTrieSet implements TrieSet61B {
         throw new UnsupportedOperationException();
     }
 
-    public static void main(String[] args) {
-    }
 }
