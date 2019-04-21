@@ -80,8 +80,25 @@ public class MergeSort {
         while (!q1.isEmpty() || !q2.isEmpty()) {
             Item stuff = getMin(q1, q2);
             res.enqueue(stuff);
+            if (q1.isEmpty()) {
+                catenate(res, q2);
+                break;
+            } else if (q2.isEmpty()) {
+                catenate(res, q1);
+                break;
+            }
         }
         return res;
+    }
+    private static <Item extends Comparable> Queue<Item> catenate(Queue<Item> q1, Queue<Item> q2) {
+        Queue<Item> catenated = new Queue<Item>();
+        for (Item item : q1) {
+            catenated.enqueue(item);
+        }
+        for (Item item: q2) {
+            catenated.enqueue(item);
+        }
+        return catenated;
     }
 
     /**
