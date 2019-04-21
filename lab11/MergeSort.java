@@ -10,6 +10,9 @@ public class MergeSort {
      * @param   q1  A Queue in sorted order from least to greatest.
      * @param   q2  A Queue in sorted order from least to greatest.
      * @return      The smallest item that is in q1 or q2.
+     *
+     * 把队列拆成单个
+     *
      */
     private static <Item extends Comparable> Item getMin(
             Queue<Item> q1, Queue<Item> q2) {
@@ -43,7 +46,13 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
-        return null;
+        Queue<Queue<Item>> res = new Queue<>();
+        while (!items.isEmpty()) {
+            Queue<Item> haha = new Queue<>();
+            haha.enqueue(items.dequeue());
+            res.enqueue(haha);
+        }
+        return res;
     }
 
     /**
@@ -62,7 +71,12 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
         // Your code here!
-        return null;
+        Queue<Item> res = new Queue<>();
+        while (!q1.isEmpty() || !q2.isEmpty()) {
+            Item stuff = getMin(q1, q2);
+            res.enqueue(stuff);
+        }
+        return res;
     }
 
     /**
@@ -78,6 +92,11 @@ public class MergeSort {
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
         // Your code here!
-        return items;
+        Queue<Queue<Item>> QinQ = makeSingleItemQueues(items);
+        Queue<Item> res = new Queue<>();
+        while (!QinQ.isEmpty()) {
+            res = mergeSortedQueues(res, QinQ.dequeue());
+        }
+        return res;
     }
 }
