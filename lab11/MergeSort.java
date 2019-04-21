@@ -47,9 +47,14 @@ public class MergeSort {
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
         Queue<Queue<Item>> res = new Queue<>();
-        while (!items.isEmpty()) {
+        /*while (!items.isEmpty()) {
             Queue<Item> haha = new Queue<>();
             haha.enqueue(items.dequeue());
+            res.enqueue(haha);
+        }*/
+        for (Item item : items) {
+            Queue<Item> haha = new Queue<>();
+            haha.enqueue(item);
             res.enqueue(haha);
         }
         return res;
@@ -91,7 +96,9 @@ public class MergeSort {
      */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
-        // Your code here!
+        if (items.size() <= 1) {
+            return items;
+        }
         Queue<Queue<Item>> QinQ = makeSingleItemQueues(items);
         Queue<Item> res = new Queue<>();
         while (!QinQ.isEmpty()) {
