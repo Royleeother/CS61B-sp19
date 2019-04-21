@@ -86,7 +86,8 @@ public class QuickSort {
         partition(items, pivot, less, equal, greater);
         if (less.size() > 1) {
             less = quickSort(less);
-        } else if (greater.size() > 1) {
+        }
+        if (greater.size() > 1) {
             greater = quickSort(greater);
         }
         items = catenate(catenate(less, equal), greater);

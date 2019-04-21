@@ -8,11 +8,16 @@ public class TestSortAlgs {
     @Test
     public void testQuickSort() {
         Queue<Integer> tas = new Queue<Integer>();
-        tas.enqueue(39);
-        tas.enqueue(6);
-        tas.enqueue(199);
+        tas.enqueue(0);
+        tas.enqueue(1);
         tas.enqueue(2);
-        tas.enqueue(55);
+        tas.enqueue(3);
+        tas.enqueue(3);
+        tas.enqueue(8);
+        tas.enqueue(8);
+        tas.enqueue(6);
+        tas.enqueue(6);
+        tas.enqueue(5);
 
         tas = QuickSort.quickSort(tas);
 
