@@ -58,8 +58,17 @@ public class QuickSort {
             Queue<Item> unsorted, Item pivot,
             Queue<Item> less, Queue<Item> equal, Queue<Item> greater) {
         // Your code here!
-        while (!unsorted.isEmpty()) {
+        /*while (!unsorted.isEmpty()) {
             Item curr = unsorted.dequeue();
+            if (curr.compareTo(pivot) < 0) {
+                less.enqueue(curr);
+            } else if (curr.compareTo(pivot) > 0) {
+                greater.enqueue(curr);
+            } else {
+                equal.enqueue(curr);
+            }
+        } this method would modify the size */
+        for (Item curr : unsorted) {
             if (curr.compareTo(pivot) < 0) {
                 less.enqueue(curr);
             } else if (curr.compareTo(pivot) > 0) {
