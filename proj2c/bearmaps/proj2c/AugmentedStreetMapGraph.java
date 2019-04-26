@@ -17,19 +17,40 @@ import java.util.*;
 public class AugmentedStreetMapGraph extends StreetMapGraph {
     private List<Point> points;
     private Map<Point, Node> pointToNode;
+    private MyTrieSet trieSet;
+    private Map<String, List<Node>> nameToNode; // smart strategy to avoid duplicates
 
     public AugmentedStreetMapGraph(String dbPath) {
         super(dbPath);
-        // You might find it helpful to uncomment the line below:
+
         List<Node> nodes = this.getNodes();
         points = new ArrayList<>();
         pointToNode = new HashMap<>();
+        trieSet = new MyTrieSet();
+        nameToNode = new HashMap<>();
 
         for (Node node : nodes) {
             if (this.neighbors(node.id()).size() > 0) {
                 Point p = new Point(node.lon(), node.lat());
                 points.add(p);
                 pointToNode.put(p, node);
+            }
+
+            if (node.name() != null) {
+                String cleanName = cleanString(node.name());
+                trieSet.add(cleanName);
+                if (!nameToNode.containsKey(cleanName)) {
+                    nameToNode.put(cleanName, new LinkedList<>());
+                }
+                nameToNode.get(cleanName).add(node);
+                /*
+                Map<String, List<String>> map = new HashMap<>();
+                map.computeIfAbsent("key1", k -> new ArrayList<>()).add("value1");
+                map.computeIfAbsent("key1", k -> new ArrayList<>()).add("value2");
+
+                assertThat(map.get("key1").get(0)).isEqualTo("value1");
+                assertThat(map.get("key1").get(1)).isEqualTo("value2");
+                 */
             }
         }
     }
@@ -67,7 +88,17 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * cleaned <code>prefix</code>.
      */
     public List<String> getLocationsByPrefix(String prefix) {
-        return new LinkedList<>();
+        LinkedList<String> fullName_result = new LinkedList<>();
+        List<String> names = trieSet.keysWithPrefix(cleanString(prefix)); // this is an ArrayList
+        for (String s : names) {
+            for (Node node : nameToNode.get(s)) {
+                if (!fullName_result.contains(node.name())) {
+                    fullName_result.add(node.name());
+                }
+            }
+            // fullName_result.add(s); this is wrong, would return the clean name (lowercase)
+        }
+        return fullName_result;
     }
 
     /**
@@ -84,7 +115,21 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * "id" -> Number, The id of the node. <br>
      */
     public List<Map<String, Object>> getLocations(String locationName) {
-        return new LinkedList<>();
+        LinkedList<Map<String, Object>> locations = new LinkedList<>();
+        String cleanName = cleanString(locationName);
+
+        if (nameToNode.containsKey(cleanName)) {
+            List<Node> locations_nodes = nameToNode.get(cleanName);
+            for (Node node : locations_nodes) {
+                Map<String, Object> info = new HashMap<>();
+                info.put("lon", node.lon());
+                info.put("lat", node.lat());
+                info.put("name", node.name());
+                info.put("id", node.id());
+                locations.add(info);
+            }
+        }
+        return locations;
     }
 
 
