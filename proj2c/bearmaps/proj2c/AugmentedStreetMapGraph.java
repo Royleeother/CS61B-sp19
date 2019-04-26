@@ -32,13 +32,6 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
                 pointToNode.put(p, node);
             }
         }
-        /*
-        根据lon，lat遍历所有元素，找出没有名字的，添加到 Map<vertex, Point>里面.
-        遍历Map,把 Map里面的点 add到，添加到点集（PointSet）里
-        然后用 WeirdPointSet.nearest(x1, y1), 得出点 P。
-        然后用Map根据这个P得出相应的vertex, 返回。
-         */
-
     }
 
 
@@ -50,6 +43,15 @@ public class AugmentedStreetMapGraph extends StreetMapGraph {
      * @return The id of the node in the graph closest to the target.
      */
     public long closest(double lon, double lat) {
+        /*
+        ~遍历信息中的 node节点
+        ~把有邻居的node添加到 一个<Point, Node> 的哈希表
+        ~把有邻居的node添加到 一个<Point> 的列表
+        ~用WeirdPointSet把列表转化为PointSet
+        ~用WeirdPointSet.nearest(lon, lat) 得到最近点 P
+        ~根据P在哈希表内找回相应的node
+        ~返回node.id()
+         */
         WeirdPointSet ps = new WeirdPointSet(points);
         Point p = ps.nearest(lon, lat);
         return pointToNode.get(p).id();
