@@ -16,20 +16,21 @@ public class HexWorld {
     private static final int HEIGHT = 30;
 
     /**
-     * @source: yngz
      * Adds a hexagon to the world.
      * @param world the world to draw on
-     * @param x the bottom left coordinate of the hexagon
-     * @param y
+     * @param x the bottom left coordinate of the hexagon by x coordinate
+     * @param y the bottom left coordinate of the hexagon by y coordinate
      * @param s the size of the hexagon
      * @param t the tile to draw
      */
-    public static void addHexagon(TETile[][] world, int x,int y, int s, TETile t, TETile buff) {
+    public static void addHexagon(TETile[][] world, int x,int y, int s, TETile t) {
         if (s < 2) {
             throw new IllegalArgumentException("Hexagon must be at least size 2.");
         }
+        singleHexagon(world, x, y, s, t);
     }
 
+    // draw a character repetitively sth time
     private static void drawChar(TETile[][] world, int x, int y, int s, TETile t) {
         if (s > 0) {
             world[x][y] = t;
@@ -37,21 +38,19 @@ public class HexWorld {
         }
     }
 
-    private static void drawLine(TETile[][] world, int x,int y, int s, int spac_fac,
-                                 TETile t, TETile buff) {
-        drawChar(world, x, y, spac_fac, buff);
-        drawChar(world, x + spac_fac, y, s, t);
-        drawChar(world, x + spac_fac + s, y, spac_fac, buff);
+    // consider the space
+    private static void drawLine(TETile[][] world, int x,int y, int s, int space_fac, TETile t) {
+        drawChar(world, x + space_fac, y, s, t);
     }
 
     private static void singleHexagon(TETile[][] world, int x,int y, int s,
-                                      TETile t, TETile buff) {
+                                      TETile t) {
         int half = s;
         int length = s * 2;
         int space_factor = s - 1;
 
         for (int i = 1; i <= length; i += 1) {
-            drawLine(world, x, y, s, space_factor, t, buff);
+            drawLine(world, x, y, s, space_factor, t);
             if (i < half) {
                 s += 2;
                 space_factor -= 1;
@@ -61,6 +60,20 @@ public class HexWorld {
             }
             y += 1;
 
+        }
+    }
+
+    /**
+     * @param size size of each hexagons
+     */
+    private static void generateHexagon(TETile[][] world, int size) {
+        int x = world.length / 2;
+        int y = 0;
+        TETile t = Tileset.WATER;
+        int total = size * 99;
+
+        for (int i = 0; i < total; i += 1) {
+            addHexagon(world, x, y, size, t);
         }
     }
 
@@ -79,9 +92,11 @@ public class HexWorld {
         }
         //drawChar(world, 5, 2, 5, Tileset.WATER);
         //drawLine(world, 0, 0, 2, 1, Tileset.WATER, Tileset.NOTHING);
-        singleHexagon(world, 0, 0, 4, Tileset.WATER, Tileset.WALL);
-        singleHexagon(world, 0, 8, 4, Tileset.WATER, Tileset.WALL);
-        singleHexagon(world, 10 - 3, 4, 4, Tileset.FLOWER, Tileset.WATER);
+        singleHexagon(world, 0, 0, 4, Tileset.WATER);
+        singleHexagon(world, 0, 8, 4, Tileset.WATER);
+        singleHexagon(world, 10 - 3, 4, 4, Tileset.FLOWER);
+        
+
         ter.renderFrame(world);
     }
 }
